@@ -347,7 +347,7 @@ def transcribe_interview(audio_file_path, output_file_path="transcript.txt"):
 # ============================================
 if __name__ == "__main__":
 
-    audio_file = "audio.wav"
+    audio_file = os.path.join(os.path.dirname(__file__), "audio.mp3")
     output_file = "transcript.txt"
 
     if not os.path.exists(audio_file):
