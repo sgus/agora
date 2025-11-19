@@ -1,1 +1,3 @@
 rootProject.name = 'agora'
+
+include 'agora-backend'

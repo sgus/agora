@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "ai.agora.proto.v1";
+option java_outer_classname = "TranscriptionProtoV1";
+
+package transcription.v1;
+
+// Сервис транскрипции аудио/видео файлов (версия 1)
+service TranscriptionService {
+  // Транскрибирует аудио файл и возвращает текст
+  rpc TranscribeAudio(AudioRequest) returns (TranscriptionResponse);
+
+  // Стриминговая версия для больших файлов
+  rpc TranscribeAudioStream(stream AudioChunk) returns (TranscriptionResponse);
+}
+
+// Запрос на транскрипцию (весь файл сразу)
+message AudioRequest {
+  // Содержимое аудио файла в байтах
+  bytes audio_data = 1;
+
+  // Имя файла (опционально)
+  string filename = 2;
+
+  // Формат аудио (wav, mp3, m4a и т.д.)
+  string format = 3;
+
+  // Частота дискретизации (опционально, если известна)
+  int32 sample_rate = 4;
+}
+
+// Часть аудио файла для стриминга
+message AudioChunk {
+  // Часть данных
+  bytes chunk_data = 1;
+
+  // Метаданные (только в первом чанке)
+  string filename = 2;
+  string format = 3;
+  int32 sample_rate = 4;
+}
+
+// Ответ с транскрипцией
+message TranscriptionResponse {
+  // Текст транскрипции
+  string transcript = 1;
+
+  // Статус обработки
+  bool success = 2;
+
+  // Сообщение об ошибке (если есть)
+  string error_message = 3;
+
+  // Время обработки в секундах
+  double processing_time = 4;
+
+  // Длительность аудио в секундах
+  double audio_duration = 5;
+
+  // Дополнительная статистика
+  TranscriptionStats stats = 6;
+}
+
+// Статистика транскрипции
+message TranscriptionStats {
+  // Количество слов
+  int32 word_count = 1;
+
+  // Количество символов
+  int32 char_count = 2;
+
+  // Скорость обработки (x от реального времени)
+  double speed_factor = 3;
+}
