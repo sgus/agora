@@ -1,6 +1,6 @@
 """
 Базовый абстрактный класс для сервиса транскрипции аудио файлов.
-Содержит общую логику для всех версий.
+Содержит общую логику для всех реализаций.
 """
 
 import logging
@@ -8,11 +8,11 @@ import time
 from abc import abstractmethod
 from pathlib import Path
 
-from services.base.transcription_service_interface import ITranscriptionService
+from services.transcription.interface import ITranscriptionService
 
 
 class TranscriptionServiceBase(ITranscriptionService):
-    """Базовый класс с общей логикой для всех версий TranscriptionService"""
+    """Базовый класс с общей логикой для всех реализаций TranscriptionService"""
 
     def __init__(self):
         """Инициализация базового сервиса"""
@@ -83,6 +83,6 @@ class TranscriptionServiceBase(ITranscriptionService):
         Должен быть реализован в подклассе.
 
         Returns:
-            Строка с версией (например, "01")
+            Строка с версией (например, "whisper", "google-speech")
         """
         pass

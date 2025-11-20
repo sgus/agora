@@ -1,6 +1,6 @@
 """
 Интерфейс для сервиса транскрипции.
-Определяет контракт, который должны реализовывать все версии TranscriptionService.
+Определяет контракт, который должны реализовывать все реализации TranscriptionService.
 """
 
 from abc import ABC, abstractmethod
@@ -43,6 +43,6 @@ class ITranscriptionService(ABC):
         Возвращает версию сервиса.
 
         Returns:
-            Строка с версией (например, "01")
+            Строка с версией (например, "whisper", "google-speech")
         """
         pass
